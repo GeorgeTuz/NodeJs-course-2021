@@ -10,17 +10,15 @@ router.route('/:id').get(async (req, res) => {
   const { id } = req.params;
   const user = await usersService.getUserById(id);
   if (user) {
-    // res.status(201).send('Created');
     res.json(User.toResponse(user));
   } else {
-    res.json("User with such id not found");
+    res.status(404).send("User with such id not found");
   }
 });
 router.route('/').post(async (req, res) => {
   const { name, login, password } = req.body;
-  const newUser = new User({name, login, password})
-  const user = await usersService.createUser(newUser);
-  res.json(User.toResponse(user));
+  const user = await usersService.createUser(name, login, password);
+  res.status(201).send(User.toResponse(user));
 });
 router.route('/:id').put(async (req, res) => {
   const { id } = req.params;
@@ -29,16 +27,16 @@ router.route('/:id').put(async (req, res) => {
   if (user) {
     res.json(User.toResponse(user));
   } else {
-    res.json("User with such id not found");
+    res.status(404).send("User with such id not found");
   }
 });
 router.route('/:id').delete(async (req, res) => {
   const { id } = req.params;
   const user = await usersService.deleteUser(id);
   if (user) {
-    res.json(User.toResponse(user));
+    res.status(204).send(User.toResponse(user));
   } else {
-    res.json("User with such id not found");
+    res.status(404).send("User with such id not found");
   }
 });
 module.exports = router;

@@ -1,14 +1,14 @@
 const uuid = require('uuid').v4;
 
-class User {
+class Task {
   constructor({
     id = uuid(),
     title = 'TITLE',
     order = 'order',
     description = 'description',
-    userId = 'userId', // assignee
-    boardId = 'boardId',
-    columnId = 'columnId'
+    userId = null,
+    boardId = null,
+    columnId = null
   } = {}) {
     this.id = id;
     this.title = title;
@@ -20,4 +20,4 @@ class User {
   }
 }
 
-module.exports = User;
+module.exports = Task;
